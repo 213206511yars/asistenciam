@@ -36,7 +36,19 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        $materia = new Materia();
+        $materia->materia = $request->input('materia');
+        $materia->seccion = $request->input('seccion');
+        $materia->crn = $request->crn;
+        $materia->salon = $request->salon;
+        $materia->save();
+        */
+        
+        //Debe estar $fillable o $guarded declarados en el Modelo
+        Materia::create($request->all());
+      
+        return redirect()->route('materia.index');
     }
 
     /**
@@ -45,9 +57,10 @@ class MateriaController extends Controller
      * @param  \App\Materia  $materia
      * @return \Illuminate\Http\Response
      */
-    public function show(Materia $materia)
+    public function show(Materia $materium)
     {
-        //
+        //Pasa la información en la variable $materium como $materia a la vista
+        return view('materias.materiaShow')->with(['materia' => $materium]);
     }
 
     /**
@@ -81,6 +94,7 @@ class MateriaController extends Controller
      */
     public function destroy(Materia $materia)
     {
-        //
+        $materium->delete();
+        return redirect()->route('materia.index');
     }
 }
